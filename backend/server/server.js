@@ -42,5 +42,5 @@ sequelize.sync({ force: false }).then(async () => {
     console.log('Default suppliers seeded');
   }
 
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
 });

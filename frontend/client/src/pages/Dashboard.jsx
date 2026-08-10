@@ -17,8 +17,8 @@ export default function Dashboard({ token, onLogout }) {
   const fetchData = async () => {
     try {
       const [prodRes, suppRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/products'),
-        axios.get('http://localhost:5000/api/suppliers')
+        axios.get('https://inventory-api-backend-o7f7.onrender.com/api/products'),
+        axios.get('https://inventory-api-backend-o7f7.onrender.com/api/suppliers')
       ]);
       setProducts(prodRes.data);
       setSuppliers(suppRes.data);
@@ -34,10 +34,10 @@ export default function Dashboard({ token, onLogout }) {
   const handleFormSubmit = async (formData) => {
     try {
       if (editingProduct) {
-        await axios.put(`http://localhost:5000/api/products/${editingProduct.id}`, formData, authHeader);
+        await axios.put(`https://inventory-api-backend-o7f7.onrender.com/api/products/${editingProduct.id}`, formData, authHeader);
         setEditingProduct(null);
       } else {
-        await axios.post('http://localhost:5000/api/products', formData, authHeader);
+        await axios.post('https://inventory-api-backend-o7f7.onrender.com/api/products', formData, authHeader);
       }
       fetchData();
     } catch (err) {
@@ -48,7 +48,7 @@ export default function Dashboard({ token, onLogout }) {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/products/${id}`, authHeader);
+        await axios.delete(`https://inventory-api-backend-o7f7.onrender.com/api/products/${id}`, authHeader);
         fetchData();
       } catch (err) {
         setError('Failed to delete product');

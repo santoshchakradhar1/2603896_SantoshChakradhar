@@ -22,7 +22,7 @@ export default function ProductList({ products, onEdit, onDelete }) {
               <tr key={p.id} className={isLowStock ? 'low-stock' : ''}>
                 <td>
                   {p.image ? (
-                    <img src={`http://localhost:5000${p.image}`} alt={p.name} width="50" height="50" style={{ objectFit: 'cover', borderRadius: '4px' }} />
+                    <img src={`https://inventory-api-backend-o7f7.onrender.com${p.image}`} alt={p.name} width="50" height="50" style={{ objectFit: 'cover', borderRadius: '4px' }} />
                   ) : 'No Image'}
                 </td>
                 <td>{p.name} {isLowStock && <span style={{ fontSize: '0.8em', color: 'red' }}>(LOW STOCK)</span>}</td>
