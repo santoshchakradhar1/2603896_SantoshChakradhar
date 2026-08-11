@@ -13,7 +13,6 @@ export default function Dashboard() {
     name: '',
     price: '',
     quantity: '',
-    category: '',
     supplier: ''
   });
   const [editingId, setEditingId] = useState(null);
@@ -69,7 +68,7 @@ export default function Dashboard() {
         );
       }
       
-      setFormData({ name: '', price: '', quantity: '', category: '', supplier: '' });
+      setFormData({ name: '', price: '', quantity: '', supplier: '' });
       fetchProducts();
     } catch (err) {
       setError(err.response?.data?.message || 'Action failed. Check authentication.');
@@ -83,7 +82,6 @@ export default function Dashboard() {
       name: product.name || '',
       price: product.price || '',
       quantity: product.quantity ?? product.stock ?? '',
-      category: product.category || '',
       supplier: product.supplier || ''
     });
   };
@@ -100,7 +98,7 @@ export default function Dashboard() {
 
   const handleCancelEdit = () => {
     setEditingId(null);
-    setFormData({ name: '', price: '', quantity: '', category: '', supplier: '' });
+    setFormData({ name: '', price: '', quantity: '', supplier: '' });
   };
 
   const handleLogout = () => {
@@ -115,8 +113,7 @@ export default function Dashboard() {
 
   // Search Filter
   const filteredProducts = products.filter(p =>
-    p.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.category?.toLowerCase().includes(searchTerm.toLowerCase())
+    p.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -180,14 +177,6 @@ export default function Dashboard() {
           />
           <input
             type="text"
-            name="category"
-            placeholder="Category"
-            value={formData.category}
-            onChange={handleInputChange}
-            style={styles.input}
-          />
-          <input
-            type="text"
             name="supplier"
             placeholder="Supplier"
             value={formData.supplier}
@@ -212,7 +201,7 @@ export default function Dashboard() {
       <div style={styles.controls}>
         <input
           type="text"
-          placeholder="Search by name or category..."
+          placeholder="Search by name..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={styles.searchInput}
@@ -229,7 +218,6 @@ export default function Dashboard() {
               <th style={styles.th}>Name</th>
               <th style={styles.th}>Price</th>
               <th style={styles.th}>Stock</th>
-              <th style={styles.th}>Category</th>
               <th style={styles.th}>Supplier</th>
               <th style={styles.th}>Actions</th>
             </tr>
@@ -237,7 +225,7 @@ export default function Dashboard() {
           <tbody>
             {filteredProducts.length === 0 ? (
               <tr>
-                <td colSpan="6" style={styles.tdCenter}>No products found.</td>
+                <td colSpan="5" style={styles.tdCenter}>No products found.</td>
               </tr>
             ) : (
               filteredProducts.map((prod) => {
@@ -252,7 +240,6 @@ export default function Dashboard() {
                     <td style={{ ...styles.td, color: isLowStock ? '#e74c3c' : 'inherit', fontWeight: isLowStock ? 'bold' : 'normal' }}>
                       {qty} {isLowStock && '(Low)'}
                     </td>
-                    <td style={styles.td}>{prod.category || 'N/A'}</td>
                     <td style={styles.td}>{prod.supplier || 'N/A'}</td>
                     <td style={styles.td}>
                       <button onClick={() => handleEdit(prod)} style={styles.editBtn}>Edit</button>
